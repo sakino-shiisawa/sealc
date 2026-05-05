@@ -39,3 +39,14 @@
 
 # debug information files
 *.dwo
+
+build/
+build-ninja/
+build-release/
+
+AGENTS.md
+compile_commands.json
+CMakePresets.json
+
+.vscode/
+.cache/
