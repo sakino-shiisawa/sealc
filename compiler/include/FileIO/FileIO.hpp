@@ -30,6 +30,7 @@ public:
 		return false;
 	}
 	
+	[[nodiscard]]
 	static TOptional<TUtf32String, EFileIOError> ReadFile(std::filesystem::path InPath)
 	{
 		std::ifstream FileStream(InPath, std::ios::binary);

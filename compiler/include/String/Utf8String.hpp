@@ -49,15 +49,23 @@ public:
 			return Temp;
 		}
 
+		[[nodiscard]]
 		size_t Size() const noexcept { return TChar::GetUtf8CharSize(*MyCurrent); }
 
+		[[nodiscard]]
 		TChar operator*() const { return TChar(MyCurrent); }
 
+		[[nodiscard]]
 		bool operator==(const TIterator& InRhs) const noexcept { return MyCurrent == InRhs.MyCurrent; }
+		[[nodiscard]]
 		bool operator!=(const TIterator& InRhs) const noexcept { return MyCurrent != InRhs.MyCurrent; }
+		[[nodiscard]]
 		bool operator>(const TIterator& InRhs) const noexcept { return MyCurrent > InRhs.MyCurrent; }
+		[[nodiscard]]
 		bool operator>=(const TIterator& InRhs) const noexcept { return MyCurrent >= InRhs.MyCurrent; }
+		[[nodiscard]]
 		bool operator<(const TIterator& InRhs) const noexcept { return MyCurrent < InRhs.MyCurrent; }
+		[[nodiscard]]
 		bool operator<=(const TIterator& InRhs) const noexcept { return MyCurrent <= InRhs.MyCurrent; }
 
 	private:
@@ -101,15 +109,18 @@ public:
 	}
 
 	/* excluding null-char */
+	[[nodiscard]]
 	size_t CharCount() const noexcept
 	{
 		return MyCharCount;
 	}
+	[[nodiscard]]
 	size_t BufferSize() const noexcept
 	{
 		return MyData.Size();
 	}
 
+	[[nodiscard]]
 	bool IsEmpty() const noexcept { return MyData.IsEmpty(); }
 	void Reset() noexcept
 	{
@@ -125,12 +136,14 @@ public:
 		MyData.Reserve(InNewSize);
 	}
 
+	[[nodiscard]]
 	TUtf8String SubStr(const TIterator& InBegin, const TIterator& InEnd) const
 	{
 		ASSERT(InEnd.MyCurrent - InBegin.MyCurrent > 0, "reverse address");
 		return TUtf8String(InBegin.MyCurrent, static_cast<size_t>(InEnd.MyCurrent - InBegin.MyCurrent));
 	}
 
+	[[nodiscard]]
 	friend TUtf8String operator+(const char8_t* InLhs, const TUtf8String& InRhs) noexcept
 	{
 		TUtf8String LhsStr = InLhs;
@@ -154,6 +167,7 @@ public:
 		}
 		return Ret;
 	}
+	[[nodiscard]]
 	friend TUtf8String operator+(const TUtf8String& InLhs, const char8_t* InRhs) noexcept
 	{
 		TUtf8String RhsStr = InRhs;
@@ -178,8 +192,11 @@ public:
 		return Ret;
 	}
 
+	[[nodiscard]]
 	TIterator begin() noexcept { return TIterator(MyData.Data(), MyData.Data(), MyData.Data() + MyData.Size() - 1); }
+	[[nodiscard]]
 	TIterator end() noexcept { return TIterator(MyData.Data(), MyData.Data() + MyData.Size() - 1, MyData.Data() + MyData.Size() - 1); }
+	[[nodiscard]]
 	TIterator begin() const noexcept
 	{
 		char8_t* Ptr = const_cast<char8_t*>(MyData.Data());
@@ -189,6 +206,7 @@ public:
 			Ptr + MyData.Size() - 1
 		);
 	}
+	[[nodiscard]]
 	TIterator end() const noexcept
 	{
 		char8_t* Ptr = const_cast<char8_t*>(MyData.Data());
@@ -199,7 +217,9 @@ public:
 		);
 	}
 
+	[[nodiscard]]
 	const char8_t* Data() const noexcept { return MyData.Data(); }
+	[[nodiscard]]
 	char8_t* Data() noexcept { return MyData.Data(); }
 
 PRIVATE:

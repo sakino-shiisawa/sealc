@@ -86,9 +86,13 @@ public:
 			return !(*this == InRhs);
 		}
 
+		[[nodiscard]]
 		Type& operator*() noexcept { return *MyCurrent; }
+		[[nodiscard]]
 		const Type& operator*() const noexcept { return *MyCurrent; }
+		[[nodiscard]]
 		Type* operator->() noexcept { return MyCurrent; }
+		[[nodiscard]]
 		const Type* operator->() const noexcept { return MyCurrent; }
 
 	private:
@@ -128,8 +132,11 @@ public:
 	TArray& operator=(const TArray&) = default;
 	TArray& operator=(TArray&&) = default;
 
+	[[nodiscard]]
 	size_t Size() const noexcept { return MyCount; }
+	[[nodiscard]]
 	size_t Capacity() const noexcept { return MyCapacity; }
+	[[nodiscard]]
 	bool IsEmpty() const noexcept { return Size() == 0; }
 
 	void ShrinkToFit() noexcept
@@ -205,23 +212,31 @@ public:
 		MyCount = 0;
 	}
 
+	[[nodiscard]]
 	Type* Data() noexcept { return MyData.Get(); }
+	[[nodiscard]]
 	const Type* Data() const noexcept { return MyData.Get(); }
 
+	[[nodiscard]]
 	const Type& operator[](size_t InIndex) const noexcept
 	{
 		ASSERT(MyCount > InIndex, "Out of Memory");
 		return MyData[InIndex];
 	}
+	[[nodiscard]]
 	Type& operator[](size_t InIndex) noexcept
 	{
 		ASSERT(MyCount > InIndex, "Out of Memory");
 		return MyData[InIndex];
 	}
 
+	[[nodiscard]]
 	TIterator begin() noexcept { return TIterator(MyData.Get(), MyData.Get(), MyData.Get() + MyCount); }
+	[[nodiscard]]
 	TIterator end() noexcept { return TIterator(MyData.Get(), MyData.Get() + MyCount, MyData.Get() + MyCount); }
+	[[nodiscard]]
 	TIterator begin() const noexcept { return TIterator(MyData.Get(), MyData.Get(), MyData.Get() + MyCount); }
+	[[nodiscard]]
 	TIterator end() const noexcept { return TIterator(MyData.Get(), MyData.Get() + MyCount, MyData.Get() + MyCount); }
 
 PRIVATE:

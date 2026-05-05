@@ -98,13 +98,20 @@ public:
 		}
 	}
 
+	[[nodiscard]]
 	const TUtf32String& GetString() const noexcept { return Pool[MyIndex]; }
 
+	[[nodiscard]]
 	bool operator==(const THashString& InRhs) const noexcept { return MyHashValue == InRhs.MyHashValue; }
+	[[nodiscard]]
 	bool operator!=(const THashString& InRhs) const noexcept { return !(*this == InRhs); }
+	[[nodiscard]]
 	bool operator>(const THashString& InRhs) const noexcept { return MyHashValue > InRhs.MyHashValue; }
+	[[nodiscard]]
 	bool operator>=(const THashString& InRhs) const noexcept { return MyHashValue >= InRhs.MyHashValue; }
+	[[nodiscard]]
 	bool operator<(const THashString& InRhs) const noexcept { return MyHashValue < InRhs.MyHashValue; }
+	[[nodiscard]]
 	bool operator<=(const THashString& InRhs) const noexcept { return MyHashValue <= InRhs.MyHashValue; }
 
 PRIVATE:

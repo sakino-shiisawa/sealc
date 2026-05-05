@@ -16,6 +16,7 @@ enum class EConvertEncodingError
 class Char
 {
 public:
+	[[nodiscard]]
 	static TOptional<char32_t, EConvertEncodingError> ConvertToUtf32(const TChar& InChar) noexcept
 	{
 		size_t Length = InChar.GetSize();
@@ -68,6 +69,7 @@ public:
 		return CodePoint;
 	}
 
+	[[nodiscard]]
 	static constexpr TOptional<TChar, EConvertEncodingError> ConvertToUtf8(char32_t InChar) noexcept
 	{
 		TChar Char;
@@ -102,6 +104,7 @@ public:
 class String
 {
 public:
+	[[nodiscard]]
 	static TOptional<TUtf32String, EConvertEncodingError> ConvertToUtf32(const char* InStr) noexcept
 	{
 		TUtf32String Str;
@@ -116,6 +119,7 @@ public:
 		}
 		return Str;
 	}
+	[[nodiscard]]
 	static TOptional<TUtf8String, EConvertEncodingError> ConvertToUtf8(const char32_t* InStr) noexcept
 	{
 		TArray<char8_t> Str;

@@ -58,6 +58,8 @@ public:
 		}
 		return false;
 	}
+
+	[[nodiscard]]
 	unsigned long GetSharedCount() const noexcept
 	{
 		return SharedCount.load(std::memory_order_acquire);
@@ -157,32 +159,42 @@ public:
 		}
 		return *this;
 	}
+
+	[[nodiscard]]
 	const Type* Get() const noexcept { return MyPtr; }
+	[[nodiscard]]
 	Type* Get() noexcept { return MyPtr; }
 
+	[[nodiscard]]
 	const Type& operator->() const noexcept
 	{
 		ASSERT(MyPtr, "invalid address");
 		return *MyPtr;
 	}
+	[[nodiscard]]
 	Type& operator->() noexcept
 	{
 		ASSERT(MyPtr, "invalid address");
 		return *MyPtr;
 	}
+	[[nodiscard]]
 	const Type& operator*() const noexcept
 	{
 		ASSERT(MyPtr, "invalid address");
 		return MyPtr;
 	}
+	[[nodiscard]]
 	Type& operator*() noexcept
 	{
 		ASSERT(MyPtr, "invalid address");
 		return MyPtr;
 	}
+	[[nodiscard]]
 	explicit operator bool() const noexcept { return MyPtr != nullptr; }
 
+	[[nodiscard]]
 	unsigned long UseCount() const noexcept { return MyControl ? MyControl->GetSharedCount() : 0; }
+	[[nodiscard]]
 	bool IsUnique() const noexcept { return UseCount() == 1; }
 
 	void Reset()
@@ -277,21 +289,28 @@ public:
 		}
 		return *this;
 	}
+	[[nodiscard]]
 	const Type* Get() const noexcept { return MyPtr; }
+	[[nodiscard]]
 	Type* Get() noexcept { return MyPtr; }
+	[[nodiscard]]
 	const Type& operator[](size_t InIndex) const noexcept
 	{
 		ASSERT(MyPtr, "invalid address");
 		return MyPtr[InIndex];
 	}
+	[[nodiscard]]
 	Type& operator[](size_t InIndex) noexcept
 	{
 		ASSERT(MyPtr, "invalid address");
 		return MyPtr[InIndex];
 	}
+	[[nodiscard]]
 	explicit operator bool() const noexcept { return MyPtr != nullptr; }
 
+	[[nodiscard]]
 	unsigned long UseCount() const noexcept { return MyControl ? MyControl->GetSharedCount() : 0; }
+	[[nodiscard]]
 	bool IsUnique() const noexcept { return UseCount() == 1; }
 
 	void Reset()
@@ -374,6 +393,8 @@ public:
 		}
 		return *this;
 	}
+
+	[[nodiscard]]
 	TSharedPtr<Type> Pin() const noexcept
 	{
 		if (MyControl && MyControl->TryAddSharedRef())
@@ -383,6 +404,7 @@ public:
 		return TSharedPtr<Type>();
 	}
 
+	[[nodiscard]]
 	bool IsExpired() const noexcept { return !MyControl || MyControl->GetSharedCount() == 0; }
 	void Reset() noexcept
 	{
@@ -411,11 +433,13 @@ private:
 };
 
 template <class Type, class... Args>
+[[nodiscard]]
 inline TSharedPtr<Type> MakeShared(Args&&... InArgs)
 {
 	return TSharedPtr<Type>(new Type(std::forward<Args...>(InArgs)...));
 }
 template <class Type>
+[[nodiscard]]
 inline TSharedPtr<Type[]> MakeSharedArray(size_t InCount)
 {
 	return TSharedPtr<Type[]>(new Type[InCount]{});

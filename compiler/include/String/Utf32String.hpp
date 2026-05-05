@@ -46,24 +46,28 @@ public:
 			return Temp;
 		}
 
+		[[nodiscard]]
 		friend TIterator operator+(const TIterator& InLhs, std::ptrdiff_t InRhs)
 		{
 			char32_t* NewCurrent = InLhs.MyCurrent + InRhs;
 			ENSURE(InLhs.MyHead <= NewCurrent && NewCurrent < InLhs.MyEnd, "Out of Range");
 			return TIterator(InLhs.MyHead, NewCurrent, InLhs.MyEnd);
 		}
+		[[nodiscard]]
 		friend TIterator operator+(std::ptrdiff_t InLhs, const TIterator& InRhs)
 		{
 			char32_t* NewCurrent = InRhs.MyCurrent + InLhs;
 			ENSURE(InRhs.MyHead <= NewCurrent && NewCurrent < InRhs.MyEnd, "Out of Range");
 			return TIterator(InRhs.MyHead, NewCurrent, InRhs.MyEnd);
 		}
+		[[nodiscard]]
 		friend TIterator operator-(const TIterator& InLhs, std::ptrdiff_t InRhs)
 		{
 			char32_t* NewCurrent = InLhs.MyCurrent - InRhs;
 			ENSURE(InLhs.MyHead <= NewCurrent && NewCurrent < InLhs.MyEnd, "Out of Range");
 			return TIterator(InLhs.MyHead, NewCurrent, InLhs.MyEnd);
 		}
+		[[nodiscard]]
 		friend TIterator operator-(std::ptrdiff_t InLhs, const TIterator& InRhs)
 		{
 			char32_t* NewCurrent = InRhs.MyCurrent - InLhs;
@@ -71,21 +75,26 @@ public:
 			return TIterator(InRhs.MyHead, NewCurrent, InRhs.MyEnd);
 		}
 
+		[[nodiscard]]
 		friend std::ptrdiff_t operator-(const TIterator& InLhs, const TIterator& InRhs) noexcept
 		{
 			return InLhs.MyCurrent - InRhs.MyCurrent;
 		}
 
+		[[nodiscard]]
 		bool operator==(const TIterator& InRhs) const noexcept
 		{
 			return MyCurrent == InRhs.MyCurrent;
 		}
+		[[nodiscard]]
 		bool operator!=(const TIterator& InRhs) const noexcept
 		{
 			return !(*this == InRhs);
 		}
 
+		[[nodiscard]]
 		char32_t& operator*() noexcept { return *MyCurrent; }
+		[[nodiscard]]
 		const char32_t& operator*() const noexcept { return *MyCurrent; }
 
 	private:
@@ -103,6 +112,7 @@ public:
 		friend TUtf32String;
 	};
 public:
+	[[nodiscard]]
 	static size_t Strlen(const char32_t* InStr) noexcept
 	{
 		size_t Idx = 0;
@@ -130,17 +140,24 @@ public:
 		std::memcpy(MyData.Data(), InStr, InSize * sizeof(char32_t));
 	}
 
+	[[nodiscard]]
 	size_t Size() const noexcept { return MyData.Size(); }
+	[[nodiscard]]
 	size_t CharCount() const noexcept { return MyData.IsEmpty() ? 0 : MyData.Size() - 1; }
+	[[nodiscard]]
 	size_t Capacity() const noexcept { return MyData.Capacity(); }
 
+	[[nodiscard]]
 	const char32_t* Data() const noexcept { return MyData.Data(); }
+	[[nodiscard]]
 	char32_t* Data() noexcept { return MyData.Data(); }
 
+	[[nodiscard]]
 	char32_t& operator[](size_t InIdx) noexcept
 	{
 		return MyData[InIdx];
 	}
+	[[nodiscard]]
 	const char32_t& operator[](size_t InIdx) const noexcept
 	{
 		return MyData[InIdx];
@@ -156,8 +173,11 @@ public:
 		MyData.PushBack(U'\0');
 	}
 
+	[[nodiscard]]
 	TIterator begin() noexcept { return TIterator(MyData.Data(), MyData.Data(), MyData.Data() + MyData.Size()); }
+	[[nodiscard]]
 	TIterator end() noexcept { return TIterator(MyData.Data(), MyData.Data() + MyData.Size(), MyData.Data() + MyData.Size()); }
+	[[nodiscard]]
 	TIterator begin() const noexcept
 	{
 		char32_t* Ptr = const_cast<char32_t*>(MyData.Data());
@@ -167,6 +187,7 @@ public:
 			Ptr + MyData.Size()
 		);
 	}
+	[[nodiscard]]
 	TIterator end() const noexcept
 	{
 		char32_t* Ptr = const_cast<char32_t*>(MyData.Data());
@@ -177,6 +198,7 @@ public:
 		);
 	}
 
+	[[nodiscard]]
 	bool operator==(const TUtf32String& InRhs) const noexcept
 	{
 		if (MyData.Size() != InRhs.Size()) { return false; }
@@ -186,6 +208,7 @@ public:
 		}
 		return true;
 	}
+	[[nodiscard]]
 	bool operator!=(const TUtf32String& InRhs) const noexcept
 	{
 		return !(*this == InRhs);

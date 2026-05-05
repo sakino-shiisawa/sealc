@@ -7,6 +7,7 @@
 class TChar
 {
 public:
+	[[nodiscard]]
 	static constexpr size_t GetUtf8CharSize(unsigned char InCodepoint) noexcept
 	{
 		if (InCodepoint < 128) { return 1; }
@@ -88,7 +89,9 @@ public:
 		InOther.SetUtf8Char(u8""); /* fill '\0' */
 	}
 
+	[[nodiscard]]
 	const char* operator&() const noexcept { return reinterpret_cast<const char*>(MyData); }
+	[[nodiscard]]
 	constexpr operator bool() const noexcept { return MyData[0] != u8'\0'; }
 
 	constexpr TChar& operator=(const TChar& InRhs)
@@ -103,6 +106,7 @@ public:
 		return *this;
 	}
 
+	[[nodiscard]]
 	constexpr bool operator==(const TChar& InRhs) const noexcept
 	{
 		return MyData[4] == InRhs.MyData[4] &&
@@ -111,25 +115,31 @@ public:
 			MyData[1] == InRhs.MyData[1] &&
 			MyData[0] == InRhs.MyData[0];
 	}
+	[[nodiscard]]
 	constexpr bool operator!=(const TChar& InRhs) const noexcept { return !(*this == InRhs); }
+	[[nodiscard]]
 	constexpr bool operator>(const TChar& InRhs) const noexcept
 	{
 		return *(unsigned int*)MyData > *(unsigned int*)InRhs.MyData;
 	}
+	[[nodiscard]]
 	constexpr bool operator<(const TChar& InRhs) const noexcept
 	{
 		return *(unsigned int*)MyData < *(unsigned int*)InRhs.MyData;
 	}
 
+	[[nodiscard]]
 	constexpr bool operator>=(const TChar& InRhs) const noexcept
 	{
 		return *(unsigned int*)MyData >= *(unsigned int*)InRhs.MyData;
 	}
+	[[nodiscard]]
 	constexpr bool operator<=(const TChar& InRhs) const noexcept
 	{
 		return *(unsigned int*)MyData <= *(unsigned int*)InRhs.MyData;
 	}
 
+	[[nodiscard]]
 	constexpr size_t GetSize() const noexcept { return GetUtf8CharSize(MyData[0]); }
 
 PRIVATE:
