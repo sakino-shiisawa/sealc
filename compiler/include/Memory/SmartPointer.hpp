@@ -166,13 +166,13 @@ public:
 	Type* Get() noexcept { return MyPtr; }
 
 	[[nodiscard]]
-	const Type& operator->() const noexcept
+	const Type* operator->() const noexcept
 	{
 		ASSERT(MyPtr, "invalid address");
 		return *MyPtr;
 	}
 	[[nodiscard]]
-	Type& operator->() noexcept
+	Type* operator->() noexcept
 	{
 		ASSERT(MyPtr, "invalid address");
 		return *MyPtr;
