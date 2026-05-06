@@ -3,6 +3,8 @@
 #include "Debug/Debug.hpp"
 #include "Core/Span.hpp"
 
+#include <type_traits>
+
 
 class TChar
 {
@@ -142,6 +144,9 @@ public:
 	[[nodiscard]]
 	constexpr size_t GetSize() const noexcept { return GetUtf8CharSize(MyData[0]); }
 
+	char8_t* Data() { return MyData; }
+	const char8_t* Data() const { return MyData; }
+
 PRIVATE:
 	char8_t MyData[5];
 
@@ -152,3 +157,11 @@ private:
 };
 
 typedef TSpan<char32_t> TUtf32StringView;
+typedef TSpan<char8_t> TUtf8StringView;
+
+template <class CharType>
+concept TUnicodeChar = 
+	std::is_same_v<CharType, char> ||
+	std::is_same_v<CharType, char8_t> ||
+	std::is_same_v<CharType, char32_t> ||
+	std::is_same_v<CharType, TChar>;
