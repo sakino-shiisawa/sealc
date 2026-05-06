@@ -146,6 +146,13 @@ public:
 		return TSpan<Type>(InBegin.MyCurrent, InEnd.MyCurrent - InBegin.MyCurrent);
 	}
 
+	TIterator begin() noexcept { return TIterator(MyPtr, MyPtr, MyPtr + MySize); }
+	TIterator end() noexcept { return TIterator(MyPtr, MyPtr + MySize, MyPtr); }
+	TIterator begin() const noexcept { return TIterator(MyPtr, MyPtr, MyPtr + MySize); }
+	TIterator end() const noexcept { return TIterator(MyPtr, MyPtr + MySize, MyPtr); }
+	TIterator cbegin() const noexcept { return TIterator(MyPtr, MyPtr, MyPtr + MySize); }
+	TIterator cend() const noexcept { return TIterator(MyPtr, MyPtr + MySize, MyPtr); }
+
 PRIVATE:
 	Type* MyPtr;
 	size_t MySize;
